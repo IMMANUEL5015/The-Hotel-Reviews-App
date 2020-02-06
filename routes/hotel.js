@@ -161,7 +161,7 @@ router.get('/:id/edit', middlewareObj.checkHotelOwnership, (req, res) => {
 
 //Update Hotel
 router.put("/:id", middlewareObj.checkHotelOwnership, upload.single('image'), async (req, res) => {
-    geocoder.geocode(req.body.hotel.location, (err, data) => {
+    await geocoder.geocode(req.body.hotel.location, async (err, data) => {
         if(err || !data.length){
             req.flash('error', 'Invalid Address');
             return res.redirect('back');  
