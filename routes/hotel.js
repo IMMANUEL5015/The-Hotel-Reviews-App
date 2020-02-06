@@ -31,6 +31,16 @@ cloudinary.config({
   api_secret: process.env.CLOUDINARY_API_SECRET
 });
 
+const NodeGeocoder = require('node-geocoder');
+ 
+const options = {
+  provider: 'google',
+  httpAdapter: 'https',
+  apiKey: process.env.GEOCODER_API_KEY,
+  formatter: null
+};
+ 
+const geocoder = NodeGeocoder(options);
 
 //Show all Hotels
 // INDEX
@@ -69,37 +79,49 @@ router.post('/', middlewareObj.isLoggedIn, upload.single('image'), function(req,
         id: req.user._id,
         username: req.user.username
     }
-    Hotel.create(req.body.hotel, async (err, hotel) => { //Create the hotel
-        if(err) {
-        req.flash('error', err.message);
-        return res.redirect('back');
+
+    geocoder.geocode(req.body.hotel.location, (err, data) => {
+        if(err || !data.length){
+            req.flash('error', 'Invalid Address');
+            return res.redirect('back');
         }
-        //Notify the followers of the user about the newly created hotel
-        
-        //Step 1: Find the user and get all followers
-        let user = await User.findById(req.user._id).populate('followers').exec();
-        
-        //Step 2: Define the notification
-        const notification = {
-                username: user.username,
-                hotelId: hotel.id,
+
+        req.body.hotel.lat = data[0].latitude;
+        req.body.hotel.lng = data[0].longitude;
+        req.body.hotel.location = data[0].formattedAddress;
+
+        Hotel.create(req.body.hotel, async (err, hotel) => { //Create the hotel
+            if(err) {
+            req.flash('error', err.message);
+            return res.redirect('back');
             }
-
-        //Step 3: Send the notification to all the user's followers
-        for(const follower of user.followers){
-            let newNotification = await Notification.create(notification); //Step 3.1 Create the notification
-            follower.notifications.push(newNotification); //Step 3.2  Send the notification
-            await follower.save();
-        }
-
-        cloudinary.v2.uploader.upload(req.file.path, async function(err, result) {
-            // add cloudinary url for the image to the hotel object under image property
-            hotel.image = result.secure_url;
-            hotel.imageId = result.public_id;
-            await hotel.save(() => {
-                res.redirect('/hotels/' + hotel.id); //Redirect to the hotels show page
-            });
-        }); 
+            //Notify the followers of the user about the newly created hotel
+            
+            //Step 1: Find the user and get all followers
+            let user = await User.findById(req.user._id).populate('followers').exec();
+            
+            //Step 2: Define the notification
+            const notification = {
+                    username: user.username,
+                    hotelId: hotel.id,
+                }
+    
+            //Step 3: Send the notification to all the user's followers
+            for(const follower of user.followers){
+                let newNotification = await Notification.create(notification); //Step 3.1 Create the notification
+                follower.notifications.push(newNotification); //Step 3.2  Send the notification
+                await follower.save();
+            }
+    
+            cloudinary.v2.uploader.upload(req.file.path, async function(err, result) {
+                // add cloudinary url for the image to the hotel object under image property
+                hotel.image = result.secure_url;
+                hotel.imageId = result.public_id;
+                await hotel.save(() => {
+                    res.redirect('/hotels/' + hotel.id); //Redirect to the hotels show page
+                });
+            }); 
+        });
     });
 });
 
@@ -139,30 +161,40 @@ router.get('/:id/edit', middlewareObj.checkHotelOwnership, (req, res) => {
 
 //Update Hotel
 router.put("/:id", middlewareObj.checkHotelOwnership, upload.single('image'), async (req, res) => {
-    await Hotel.findById(req.params.id, async (err, hotel) => { //Find the hotel
-        if(err){
-            req.flash('error', 'Unable to update hotel!.');
-            res.redirect("back");
+    geocoder.geocode(req.body.hotel.location, (err, data) => {
+        if(err || !data.length){
+            req.flash('error', 'Invalid Address');
+            return res.redirect('back');  
         }else{
-            if(req.file){ //Check to see if there is any file to be uploaded
-                try{
-                    await cloudinary.v2.uploader.destroy(hotel.imageId); //Remove the current image from Cloudinary
-                    const result = await cloudinary.v2.uploader.upload(req.file.path)//Upload a new image to cloudinary
-                    hotel.image = result.secure_url;
-                    hotel.imageId = result.public_id;
-                }catch(error){
+            await Hotel.findById(req.params.id, async (err, hotel) => { //Find the hotel
+                if(err){
                     req.flash('error', 'Unable to update hotel!.');
                     res.redirect("back");
+                }else{
+                    if(req.file){ //Check to see if there is any file to be uploaded
+                        try{
+                            await cloudinary.v2.uploader.destroy(hotel.imageId); //Remove the current image from Cloudinary
+                            const result = await cloudinary.v2.uploader.upload(req.file.path)//Upload a new image to cloudinary
+                            hotel.image = result.secure_url;
+                            hotel.imageId = result.public_id;
+                        }catch(error){
+                            req.flash('error', 'Unable to update hotel!.');
+                            res.redirect("back");
+                        }
+                    }
+                    delete req.body.hotel.rating; //Protect the rating from manipulation
+                    hotel.lat = data[0].latitude;
+                    hotel.lng = data[0].longitude;
+                    hotel.location = data[0].formattedAddress;
+                    hotel.name = req.body.hotel.name; //Set the new data
+                    hotel.description = req.body.hotel.description
+                    hotel.price = req.body.hotel.price
+                    await hotel.save((err) => { //Update the hotel in the database
+                        req.flash('success', 'You have successfully updated this hotel!.');
+                        res.redirect("/hotels/" + req.params.id);
+                    });  
                 }
-            }
-            delete req.body.hotel.rating; //Protect the rating from manipulation
-            hotel.name = req.body.hotel.name; //Set the new data
-            hotel.description = req.body.hotel.description
-            hotel.price = req.body.hotel.price
-            await hotel.save((err) => { //Update the hotel in the database
-                req.flash('success', 'You have successfully updated this hotel!.');
-                res.redirect("/hotels/" + req.params.id);
-            });  
+            });
         }
     });
 });
