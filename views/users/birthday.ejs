@@ -1,0 +1,16 @@
+<% include ../partials/header %>
+    <div class="row">
+        <h1 style="text-align: center" class="form-h1">Change Birthday Date</h1>
+        <div class="form-container">
+            <form action="/users/<%= user._id %>/updatebirthday?_method=PATCH" method="post">
+                <div class="form-group">
+                    <label for="birthday">Edit the date of your birthday:</label>
+                    <input id="birthday" class="form-control" type="date" name="birthday">
+                </div>
+                <div class="form-group">
+                    <button class="btn btn-lg btn-primary btn-block">Update Date</button>
+                </div>
+            </form>
+        </div>
+    </div>
+<% include ../partials/footer %>

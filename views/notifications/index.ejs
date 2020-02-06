@@ -1,0 +1,60 @@
+<% include ../partials/header %>
+<div class="row notifications" style="display: flex; flex-wrap: wrap;">
+    <div class="col-xs-10 col-sm-4 thumbnail text-center more_info">
+        <h4 class="notifications">Notifications</h4>
+        <div class="dropdown">
+            <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+              Notifications
+              <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+              <% allNotifications.forEach(function(notification){ %>
+                <li>
+                    <a href="/hotels/<%= notification.hotelId %>">
+                         <small><%= notification.username %> Submitted a new hotel</small>
+                    </a>
+                </li>
+            <% }); %>
+            </ul>
+          </div><!--dropdown-->
+    </div><!--thumbnail-->
+
+    <div class="col-xs-10 col-sm-3 thumbnail text-center" id="special">
+        <h4 class="followers">Followers</h4>
+        <div class="dropdown">
+            <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+              Followers
+              <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                <% followers.forEach(function(follower){ %>
+                    <li>
+                        <a href="/users/<%= follower._id %>">
+                                <small><%= follower.username %></small> 
+                        </a>
+                    </li>
+                <% }); %>
+            </ul><!--dropdown menu-->
+          </div><!--dropdown-->
+    </div><!--thumbnail-->
+
+    <div class="col-xs-10 col-sm-4 thumbnail text-center more_info">
+        <h4 class="hotels">Hotels</h4>
+        <div class="dropdown">
+            <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                Hotels
+                <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+               <% hotels.forEach(function(hotel){ %>
+                <li>
+                    <a href="/hotels/<%= hotel._id %>">
+                        <small><%= hotel.name %></small>
+                    </a>
+                </li>
+            <% }); %>
+            </ul><!--dropdown menu-->
+        </div><!--dropdown-->
+    </div><!--thumbnail---->
+</div><!--row-->
+<% include ../partials/footer %>

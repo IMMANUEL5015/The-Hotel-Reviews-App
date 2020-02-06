@@ -1,0 +1,29 @@
+<% include ../partials/header %>
+    <div class="row">
+        <h1 style="text-align: center;" class="form-h1">Create a New Hotel</h1>
+        <div class="form-container">
+            <form action="/hotels" method="POST" enctype="multipart/form-data">
+                <div class="form-group">
+                    <label for="name">Enter Hotel Name</label>
+                    <input class="form-control" type="text" name="hotel[name]" id="name" placeholder="name">
+                </div>
+                <div class="form-group">
+                    <label for="cost">Enter Cost of Hotel Per Night</label>
+                    <input class="form-control" type="number" name="hotel[price]" id="cost" placeholder="price" min="1" step="1">
+                </div>
+                <div class="form-group">
+                    <label for="image">Upload Image of Hotel</label>
+                    <input class="form-control" type="file" name="image" id="image" placeholder="image url" required accept="image/*">
+                </div>
+                <div class="form-group">
+                    <label for="description">Give a brief description of this hotel</label>
+                    <textarea name="hotel[description]" id="description" class="form-control" rows="5"></textarea>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Submit" class="btn btn-lg btn-primary btn-block">
+                </div>
+             </form>
+             <a href="/hotels">View All Hotels</a>
+        </div>
+    </div>
+<% include ../partials/footer %>

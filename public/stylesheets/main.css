@@ -1,0 +1,88 @@
+.thumbnail img{
+    width: 100%;
+}
+
+.thumbnail{
+    padding: 0px;
+}
+
+form {
+    display: inline;
+}
+
+.form-container{
+    width: 30%; 
+    margin: 30px auto;
+}
+.form-container.register{
+    width: 70%; 
+    margin: 30px auto;
+}
+.profilePage, .description{
+    background: black;
+    color: white;
+}
+.profilePage{
+    margin-bottom: 30px;
+}
+.profileImage{
+    object-fit: cover;
+    object-position: center;
+}
+.profileHeader{
+    text-align: center;
+}
+.description{
+    padding: 20px;
+}
+li{
+    list-style-type: none;
+}
+.col-md-8{
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+h1.users{
+    font-size: 36px;
+}
+#special{
+    margin-right: 5px;
+    margin-left: 5px;
+}
+
+div.dropdown{
+    margin-bottom: 10px;
+}
+#delete-form {
+    display: inline;
+}
+
+.checked {
+    color: orange;
+}
+@media screen and (max-width: 767px){
+    .more_info{
+        margin-left: 30px;
+    }
+    #special{
+        margin-right: 30px;
+        margin-left: 30px;
+    }
+}
+@media screen and (max-width: 699px){
+    .form-container{
+        width: 50%; 
+    }
+    h1.users{
+        font-size: 28px;
+    }
+}
+
+@media screen and (max-width: 499px){
+    .form-h1{
+        font-size: 24px;
+    }
+    .form-container{
+        width: 70%; 
+    }
+}

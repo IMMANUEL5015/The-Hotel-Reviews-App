@@ -1,0 +1,75 @@
+<% include ../partials/header %>
+<div class="row">
+        <h1 style="text-align: center" class="form-h1">Edit your details</h1>
+        <div class="form-container register">
+            <form action="/users/<%= user._id %>?_method=PUT" method="post" class="row" enctype="multipart/form-data">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="username">Edit your username</label>
+                        <input id="username" class="form-control" type="text" name="user[username]" value="<%= user.username %>">
+                    </div>
+                    <div class="form-group">
+                        <label for="firstname">Edit your firstname</label>
+                        <input id="firstname" class="form-control" type="text" name="user[firstName]" value="<%= user.firstName %>">
+                    </div>
+                    <div class="form-group">
+                        <label for="lastname">Edit your lastname</label>
+                        <input id="lastname" class="form-control" type="text" name="user[lastName]" value="<%= user.lastName %>">
+                    </div>
+                    <div class="form-group">
+                        <label for="adminCode">Enter the admin code to become an admin<em>(optional field)</em></label>
+                        <input id="adminCode" class="form-control" type="password" name="adminCode" placeholder="secret code">
+                    </div>
+                    <div class="form-group">
+                        <label for="profilePicture">Update your profile picture</label>
+                        <input id="profilePicture" class="form-control" type="file" name="profilePicture" accept="image/*">
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Update your email address</label>
+                        <input id="email" class="form-control" type="email" name="user[email]" value="<%= user.email %>">
+                    </div>
+                    <div class="form-group">
+                        <p>Are you a male or a female?</p>
+                        <% if(user.sex == 'Male'){ %>
+                            <label for="male">Male</label>
+                            <input type="radio" name="sex" id="male" value="Male" checked>
+                            <label for="female">Female</label>
+                            <input type="radio" name="sex" id="female" value="Female">
+                        <% }else{ %>
+                            <label for="male">Male</label>
+                            <input type="radio" name="sex" id="male" value="Male">
+                            <label for="female">Female</label>
+                            <input type="radio" name="sex" id="female" value="Female" checked>
+                        <% } %>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="phoneNumber">Edit your phone number?</label>
+                        <input id="phoneNumber" class="form-control" type="number" name="user[phoneNumber]" value="<%= user.phoneNumber %>">
+                    </div>
+                    <div class="form-group">
+                        <label for="occupation">Update your occupation?</label>
+                        <input id="occupation" class="form-control" type="text" name="user[occupation]" value="<%= user.occupation %>">
+                    </div>
+                    <div class="form-group">
+                        <label for="hobbies">Edit your hobbies?</label>
+                        <textarea name="user[hobbies]" id="hobbies" class="form-control" rows="2"><%= user.hobbies %></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="favouriteQuote">Update your favourite quote?</label>
+                        <textarea name="user[favouriteQuote]" id="favouriteQuote" class="form-control" rows="2"><%= user.favouriteQuote %></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="description">Update your description</label>
+                        <textarea name="user[description]" id="description" class="form-control" rows="5"><%= user.description %></textarea>
+                    </div>
+                    <div class="form-group">
+                        <button class="btn btn-lg btn-primary btn-block">Update Data</button>
+                    </div>
+                </div>
+            </form>
+            <a href="/users/<%= user._id %>">Go Back</a>
+        </div>
+    </div>
+<% include ../partials/footer %>

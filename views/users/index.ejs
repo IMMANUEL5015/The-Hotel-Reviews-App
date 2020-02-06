@@ -1,0 +1,33 @@
+<% include ../partials/header %>
+    <header class="jumbotron">
+        <div class="container">
+            <h1 class="users">Welcome to your dashboard administrator!</h1>
+            <p>View all the users of your application.</p>
+            <p>
+                <form action="/users" method="GET" class="form-inline">
+                    <div class="form-group">
+                        <input type="text" name="search" id="" placeholder="Search username" class="form-control">
+                        <button>Search</button>
+                    </div>
+                </form>
+            </p>
+        </div>   
+    </header>
+
+    <div class="row text-center">
+            <% if(noUser){ %>
+                <h3 class="col-xs-12">
+                    <%= noUser %>
+                </h3>
+            <% } %>
+            <% users.forEach(function(user){ %>
+                <div class="col-md-3 col-xs-6">
+                    <div class="thumbnail">
+                        <img src="<%= user.profilePicture %>" alt="<%= user.username %>">
+                        <div class="caption"><h4><%= user.username %></h4></div>
+                        <p><a href="/users/<%= user._id %>" class="btn btn-primary">View Profile</a></p>
+                    </div>
+                </div>
+            <% }); %>
+    </div><!--row-->
+<% include ../partials/footer %>

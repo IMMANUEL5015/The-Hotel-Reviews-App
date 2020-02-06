@@ -1,0 +1,76 @@
+<% include ../partials/header %>
+<div class="row">
+        <h1 style="text-align: center" class="form-h1">Sign Up</h1>
+        <div class="form-container register">
+            <form action="/register" method="post" class="row" enctype="multipart/form-data">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="username">Enter your username</label>
+                        <input id="username" class="form-control" type="text" name="username" placeholder="username">
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Enter your password</label>
+                        <input id="password" class="form-control" type="password" name="password" placeholder="password">
+                    </div>
+                    <div class="form-group">
+                        <label for="firstname">Enter your firstname</label>
+                        <input id="firstname" class="form-control" type="text" name="firstName" placeholder="Firstname">
+                    </div>
+                    <div class="form-group">
+                        <label for="lastname">Enter your lastname</label>
+                        <input id="lastname" class="form-control" type="text" name="lastName" placeholder="Lastname">
+                    </div>
+                    <div class="form-group">
+                        <label for="profilePicture">Upload your profile picture</label>
+                        <input id="profilePicture" class="form-control" type="file" name="profilePicture" accept="image/*" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Enter your email address</label>
+                        <input id="email" class="form-control" type="email" name="email" placeholder="youremailaddress@gmail.com">
+                    </div>
+                    <div class="form-group">
+                        <p>Are you a male or a female?</p>
+                        <label for="male">Male</label>
+                        <input type="radio" name="sex" id="male" value="Male">
+                        <label for="female">Female</label>
+                        <input type="radio" name="sex" id="female" value="Female">
+                    </div>
+                    <div class="form-group">
+                        <label for="phoneNumber">What is your phone number?</label>
+                        <input id="phoneNumber" class="form-control" type="number" name="phoneNumber" placeholder="08033345892">
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="birthday">Tell us the date of your birthday:</label>
+                        <input id="birthday" class="form-control" type="date" name="birthday">
+                    </div>
+                    <div class="form-group">
+                        <label for="occupation">What is your occupation?</label>
+                        <input id="occupation" class="form-control" type="text" name="occupation">
+                    </div>
+                    <div class="form-group">
+                        <label for="adminCode">Enter the secret administrator code <em>(optional field)</em></label>
+                        <input id="adminCode" class="form-control" type="password" name="adminCode" placeholder="secret code">
+                    </div>
+                    <div class="form-group">
+                        <label for="hobbies">What are your hobbies?</label>
+                        <textarea name="hobbies" id="hobbies" class="form-control" rows="2"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="favouriteQuote">What is your favourite quote?</label>
+                        <textarea name="favouriteQuote" id="favouriteQuote" class="form-control" rows="2"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="description">Give a brief description of yourself</label>
+                        <textarea name="description" id="description" class="form-control" rows="5"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <button class="btn btn-lg btn-primary btn-block">Sign Up!</button>
+                    </div>
+                </div>
+            </form>
+            <a href="/hotels">Go Back</a>
+        </div>
+    </div>
+<% include ../partials/footer %>
