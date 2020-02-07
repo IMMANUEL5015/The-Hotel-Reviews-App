@@ -81,7 +81,6 @@ This Hotel Reviews App requires Node version 10.16.0 to run succesfully.
 * An admin can edit or delete the data of any user.
 * An admin can edit or delete the data of any hotel. 
 * An admin can edit or delete any comment.
-* An admin can edit or delete any review.
 
 ## Hotels
  * Both visitors and users can see all the hotels that have been submitted to the app.

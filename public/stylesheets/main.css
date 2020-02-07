@@ -1,4 +1,11 @@
 /* Google Maps */
+body{
+    background: black;
+    color: white;
+}
+.jumbotron, .well{
+    color: black;
+}
 #map {
     height: 400px;
     width: 100%;
