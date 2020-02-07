@@ -117,8 +117,8 @@ This Hotel Reviews App requires Node version 10.16.0 to run succesfully.
 * We could make it so that an Admin will be notified of anything important that occurs in the app whether they are following other users or not.
 * We could generate a single notification and send it to all the followers of a user, instead of generating one notification per follower anytime a hotel is created.
 * We could improve the overall styling and layout of the web pages.
-* You are welcome to come up with more suggestions.
 * Use sendgrid for sending emails instead of mailtrap.
+* You are welcome to come up with more suggestions.
 
 ## Notice
 * Right now, mailtrap is used for sending emails. This means that the users do not actually recieve the email. Instead, they are trapped in our development environment.
