@@ -3,6 +3,9 @@ body{
     background: black;
     color: white;
 }
+.list-group-item{
+    color: black;
+}
 .jumbotron, .well{
     color: black;
 }
