@@ -55,3 +55,24 @@ This Hotel Reviews App requires Node version 10.16.0 to run succesfully.
 ```
 
 ## TABLE OF CONTENTS
+* [Users](#users)
+* [Hotels](#hotels)
+* [Comments](#comments)
+* [Reviews](#reviews)
+* [Notifications](#notifications)
+* [Areas for improvement](#areas-for-improvement)
+* [Notice](#notice)
+
+## Users
+
+## Hotels
+
+## Comments
+
+## Reviews
+
+## Notifications
+
+## Areas for improvement
+
+## Notice
