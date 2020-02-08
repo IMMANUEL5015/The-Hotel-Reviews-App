@@ -80,3 +80,10 @@ body {
 .no-cssanimations .slideshow li {
 	opacity: 1;
 }
+
+@media screen and (max-width: 767px){
+  .form-control{
+    display: inline-block;
+    width: 70%;
+  }
+}

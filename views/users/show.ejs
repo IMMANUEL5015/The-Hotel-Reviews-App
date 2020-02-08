@@ -7,11 +7,12 @@
             <div class="caption">
                 <a href="mailto:<%= user.email %>"><%= user.email %></a>
             </div>
-            <% if(user.followers.includes(currentUser.id)){ %>
+            <% if(currentUser && user.followers.includes(currentUser.id)){ %>
                 <form action="/unfollow/<%= user._id %>?_method=DELETE" method="POST">
                     <button class="btn btn-primary btn-md">Unfollow <%= user.username %></button>
                 </form>
-            <% }if(!(user.followers.includes(currentUser.id)) && currentUser.id != user._id){ %>
+            <% } %>
+            <% if(currentUser && !(user.followers.includes(currentUser.id)) && (currentUser.id != user._id)){ %>
             <form action="/follow/<%= user._id %>?_method=PATCH" method="POST">
                 <button class="btn btn-primary btn-md">Follow <%= user.username %></button>
             </form>
