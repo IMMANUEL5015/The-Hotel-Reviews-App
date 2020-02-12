@@ -3,45 +3,54 @@
         <div class="container">
             <h2>Welcome to the Hotel Reviews App!</h2>
             <p>View our handpicked hotels from all over Nigeria</p>
-            <p><a href="/hotels/new" class="btn btn-primary btn-lg">Add New Hotel</a></p>
-            <% if(currentUser && currentUser.isAdmin){ %>
-                <p><a href="/users/" class="btn btn-primary btn-lg">Go to your Dashboard</a></p>
-            <% } %>
             <p>
-                <form action="/hotels" method="GET" class="form-inline">
-                    <div class="form-group">
-                        <input type="text" name="search" id="" placeholder="Hotel Search" class="form-control">
-                        <input type="submit" value="Search" class="btn btn-default">
-                    </div>
-                </form>
+                <a href="/hotels/new" class="btn btn-primary btn-lg">Add New Hotel</a>
             </p>
-        </div>   
+            <% if(currentUser && currentUser.isAdmin){ %>
+                <p>
+                    <a href="/users/" class="btn btn-primary btn-lg">Go to your Dashboard</a>
+                </p>
+                <% } %>
+                    <p>
+                        <form action="/hotels" method="GET" class="form-inline">
+                            <div class="form-group">
+                                <input type="text" name="search" id="" placeholder="Hotel Search" class="form-control">
+                                <input type="submit" value="Search" class="btn btn-default">
+                            </div>
+                        </form>
+                    </p>
+        </div>
     </header>
     <div class="row text-center" style="display: flex; flex-wrap: wrap;">
-            <% if(noHotel){ %>
-                <h3 class="col-xs-12">
-                    <%= noHotel %>
-                </h3>
+        <% if(noHotel){ %>
+            <h3 class="col-xs-12">
+                <%= noHotel %>
+            </h3>
             <% } %>
-            <% hotels.forEach(function(hotel){ %>
-                <div class="col-md-3 col-sm-6">
-                    <div class="thumbnail">
-                        <img src="<%= hotel.image %>" alt="hotel image">
-                        <div class="caption">
-                            <h4><%= hotel.name %></h4>
-                            <% if(hotel.reviews.length < 1){ %>
-                                <em>No Reviews</em>
-                            <% }else{ %>
-                                <span class="fa fa-star checked"></span>
-                                <span class="fa fa-star <% if(hotel.rating > 1.5 ){ %> checked <% } %>"></span>
-                                <span class="fa fa-star <% if(hotel.rating > 2.5 ){ %> checked <% } %>"></span>
-                                <span class="fa fa-star <% if(hotel.rating > 3.5 ){ %> checked <% } %>"></span>
-                                <span class="fa fa-star <% if(hotel.rating > 4.5 ){ %> checked <% } %>"></span>
-                            <% } %>
+                <% hotels.forEach(function(hotel){ %>
+                    <div class="col-md-3 col-sm-6" style="margin: auto;">
+                        <div class="thumbnail">
+                            <img src="<%= hotel.image %>" alt="hotel image">
+                            <div class="caption">
+                                <h4>
+                                    <%= hotel.name %>
+                                </h4>
+                                <% if(hotel.reviews.length < 1){ %>
+                                    <em>No Reviews</em>
+                                    <% }else{ %>
+                                        <span class="fa fa-star checked"></span>
+                                        <span class="fa fa-star <% if(hotel.rating > 1.5 ){ %> checked <% } %>"></span>
+                                        <span class="fa fa-star <% if(hotel.rating > 2.5 ){ %> checked <% } %>"></span>
+                                        <span class="fa fa-star <% if(hotel.rating > 3.5 ){ %> checked <% } %>"></span>
+                                        <span class="fa fa-star <% if(hotel.rating > 4.5 ){ %> checked <% } %>"></span>
+                                        <% } %>
+                            </div>
+                            <p>
+                                <a href="/hotels/<%= hotel._id %>" class="btn btn-primary">More Info</a>
+                            </p>
                         </div>
-                        <p><a href="/hotels/<%= hotel._id %>" class="btn btn-primary">More Info</a></p>
                     </div>
-                </div>
-            <% }); %>
-    </div><!--row-->
-<% include ../partials/footer %>
+                    <% }); %>
+    </div>
+    <!--row-->
+    <% include ../partials/footer %>
