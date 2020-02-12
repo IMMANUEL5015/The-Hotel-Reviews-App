@@ -84,6 +84,9 @@ div.dropdown{
         margin-right: 30px;
         margin-left: 30px;
     }
+    .col-xs-10.profile{
+        float:none;
+    }
 }
 @media screen and (max-width: 699px){
     .form-container{

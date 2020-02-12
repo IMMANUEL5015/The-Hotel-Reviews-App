@@ -1,67 +1,98 @@
 <% include ../partials/header %>
-<div class="row profilePage">
-    <div class="col-md-4 col-sm-10">
-        <h1 class="profileHeader"><%= user.firstName  + " " + user.lastName %></h1>
-        <div class="thumbnail">
-            <img src="<%= user.profilePicture %>" alt="<%= user.username %>" class="profileImage">
-            <div class="caption">
-                <a href="mailto:<%= user.email %>"><%= user.email %></a>
-            </div>
-            <% if(currentUser && user.followers.includes(currentUser.id)){ %>
-                <form action="/unfollow/<%= user._id %>?_method=DELETE" method="POST">
-                    <button class="btn btn-primary btn-md">Unfollow <%= user.username %></button>
-                </form>
-            <% } %>
-            <% if(currentUser && !(user.followers.includes(currentUser.id)) && (currentUser.id != user._id)){ %>
-            <form action="/follow/<%= user._id %>?_method=PATCH" method="POST">
-                <button class="btn btn-primary btn-md">Follow <%= user.username %></button>
-            </form>
-            <% }%>
-            
-        </div>
-    </div>
-    <div class="col-md-8 col-sm-10">
-        <div class="thumbnail">
-            <div class="description">
-                <h3>About</h3>
-                <p><%= user.description %></p>
-                <h3>Hobbies</h3>
-                <p><%= user.hobbies %></p>
-                <h3>Favourite Quote</h3>
-                <p><%= user.favouriteQuote %></p>
-                <% if(user.isAdmin){ %>
-                    <p><strong>Level:</strong> Administrator</p>
-                <% } %>
-                <p><strong>Age: </strong> <%= user.age %> years old</p>
-                <p><strong>Sex: </strong><%= user.sex %></p>
-                <p>
-                    <strong>Birthday: </strong><%= user.birthday.toLocaleDateString() %>
-                    <% if(currentUser && (currentUser.id == user._id) || currentUser && currentUser.isAdmin){ %>
-                        <a href="/users/<%= user._id %>/updatebirthday" class="btn btn-warning btn-xs">
-                            Update Birthday
-                        </a>
+    <div class="row profilePage">
+        <div class="col-md-4 col-xs-10 profile" style="margin-left: auto; margin-right: auto;">
+            <h1 class="profileHeader">
+                <%= user.firstName  + " " + user.lastName %>
+            </h1>
+            <div class="thumbnail">
+                <img src="<%= user.profilePicture %>" alt="<%= user.username %>" class="profileImage">
+                <div class="caption">
+                    <a href="mailto:<%= user.email %>">
+                        <%= user.email %>
+                    </a>
+                </div>
+                <% if(currentUser && user.followers.includes(currentUser.id)){ %>
+                    <form action="/unfollow/<%= user._id %>?_method=DELETE" method="POST">
+                        <button class="btn btn-primary btn-md">Unfollow
+                            <%= user.username %>
+                        </button>
+                    </form>
                     <% } %>
-                </p>
-                <p><strong>Phone Number: </strong><%= user.phoneNumber %></p>
-                <p><strong>Occupation: </strong><%= user.occupation %></p>
-                <% if(currentUser && (currentUser.id == user._id) || currentUser && currentUser.isAdmin){ %>
-                    <p> 
-                        <a href="/users/<%= user._id %>/updatepassword" class="btn btn-warning btn-xs">
-                            Update Password
-                        </a>
-                        <a href="/users/<%= user._id %>/edit" class="btn btn-warning btn-xs">
-                            Update Other Details
-                        </a>
-                        <form action="/users/<%= user._id %>?_method=DELETE" method="post">
-                            <button class="btn btn-danger btn-xs">Delete Account</button>
-                        </form>
-                        <a href="/notifications" class="btn btn-primary btn-xs">
-                            View more info
-                        </a> 
+                        <% if(currentUser && !(user.followers.includes(currentUser.id)) && (currentUser.id != user._id)){ %>
+                            <form action="/follow/<%= user._id %>?_method=PATCH" method="POST">
+                                <button class="btn btn-primary btn-md">Follow
+                                    <%= user.username %>
+                                </button>
+                            </form>
+                            <% }%>
+
+            </div>
+        </div>
+        <div class="col-md-8 col-xs-10 profile" style="margin-left: auto; margin-right: auto;">
+            <div class="thumbnail">
+                <div class="description">
+                    <h3>About</h3>
+                    <p>
+                        <%= user.description %>
                     </p>
-                <% } %>
-            </div><!--description-->
-        </div><!--thumbnail-->
-    </div><!--col-md-8-->
-</div><!--row-->
-<% include ../partials/footer %>
+                    <h3>Hobbies</h3>
+                    <p>
+                        <%= user.hobbies %>
+                    </p>
+                    <h3>Favourite Quote</h3>
+                    <p>
+                        <%= user.favouriteQuote %>
+                    </p>
+                    <% if(user.isAdmin){ %>
+                        <p>
+                            <strong>Level:</strong> Administrator</p>
+                        <% } %>
+                            <p>
+                                <strong>Age: </strong>
+                                <%= user.age %> years old</p>
+                            <p>
+                                <strong>Sex: </strong>
+                                <%= user.sex %>
+                            </p>
+                            <p>
+                                <strong>Birthday: </strong>
+                                <%= user.birthday.toLocaleDateString() %>
+                                    <% if(currentUser && (currentUser.id == user._id) || currentUser && currentUser.isAdmin){ %>
+                                        <a href="/users/<%= user._id %>/updatebirthday" class="btn btn-warning btn-xs">
+                                            Update Birthday
+                                        </a>
+                                        <% } %>
+                            </p>
+                            <p>
+                                <strong>Phone Number: </strong>
+                                <%= user.phoneNumber %>
+                            </p>
+                            <p>
+                                <strong>Occupation: </strong>
+                                <%= user.occupation %>
+                            </p>
+                            <% if(currentUser && (currentUser.id == user._id) || currentUser && currentUser.isAdmin){ %>
+                                <p>
+                                    <a href="/users/<%= user._id %>/updatepassword" class="btn btn-warning btn-xs">
+                                        Update Password
+                                    </a>
+                                    <a href="/users/<%= user._id %>/edit" class="btn btn-warning btn-xs">
+                                        Update Other Details
+                                    </a>
+                                    <form action="/users/<%= user._id %>?_method=DELETE" method="post">
+                                        <button class="btn btn-danger btn-xs">Delete Account</button>
+                                    </form>
+                                    <a href="/notifications" class="btn btn-primary btn-xs">
+                                        View more info
+                                    </a>
+                                </p>
+                                <% } %>
+                </div>
+                <!--description-->
+            </div>
+            <!--thumbnail-->
+        </div>
+        <!--col-md-8-->
+    </div>
+    <!--row-->
+    <% include ../partials/footer %>
