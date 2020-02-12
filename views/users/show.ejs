@@ -73,16 +73,16 @@
                             </p>
                             <% if(currentUser && (currentUser.id == user._id) || currentUser && currentUser.isAdmin){ %>
                                 <p>
-                                    <a href="/users/<%= user._id %>/updatepassword" class="btn btn-warning btn-xs">
+                                    <a href="/users/<%= user._id %>/updatepassword" class="btn btn-warning btn-xs warning">
                                         Update Password
                                     </a>
-                                    <a href="/users/<%= user._id %>/edit" class="btn btn-warning btn-xs">
+                                    <a href="/users/<%= user._id %>/edit" class="btn btn-warning btn-xs warning">
                                         Update Other Details
                                     </a>
                                     <form action="/users/<%= user._id %>?_method=DELETE" method="post">
                                         <button class="btn btn-danger btn-xs">Delete Account</button>
                                     </form>
-                                    <a href="/notifications" class="btn btn-primary btn-xs">
+                                    <a href="/notifications" class="btn btn-primary btn-xs primary">
                                         View more info
                                     </a>
                                 </p>
