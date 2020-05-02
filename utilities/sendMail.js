@@ -3,12 +3,11 @@ const nodemailer = require('nodemailer');
 
 //Send reset token to the users email address
 const sendMail = (userEmail, options) => {
-     const transporter = nodemailer.createTransport({ //The mail transporter
-        host: process.env.EMAIL_HOST,
-        port: process.env.EMAIL_PORT,
+    const transporter = nodemailer.createTransport({ //The mail transporter
+        service: 'SendGrid',
         auth: {
-            user: process.env.EMAIL_USERNAME,
-            pass: process.env.EMAIL_PASSWORD
+            user: process.env.SENDGRID_USERNAME,
+            pass: process.env.SENDGRID_PASSWORD
         }
     });
 
